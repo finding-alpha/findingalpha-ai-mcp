@@ -4,6 +4,10 @@ import { z } from 'zod';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 
+interface SegmentedRevenueData {
+  [key: string]: any; // Replace with more specific types if needed
+}
+
 // Create an MCP server
 const server = new McpServer({
   name: 'segmented-revenue-mcp',
@@ -13,9 +17,9 @@ const server = new McpServer({
 /**
  * Fetches segmented revenue data for a given ticker
  * @param {string} ticker - Stock ticker symbol
- * @returns {Promise<Object>} Segmented revenue data
+ * @returns {Promise<SegmentedRevenueData>} Segmented revenue data
  */
-async function fetchSegmentedRevenue(ticker) {
+async function fetchSegmentedRevenue(ticker: string): Promise<SegmentedRevenueData> {
   const response = await axios.get(`https://scraper-backend-2ml7.onrender.com/api/v1/sec/segmented-revenue/?ticker=${ticker}`);
   return response.data;
 }

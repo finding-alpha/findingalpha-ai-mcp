@@ -13,13 +13,13 @@
   ],
   "scripts": {
     "build": "tsc && shx chmod +x dist/*.js",
-    "prepare": "npm run build",
+    "prepare": "node -e \"if(process.env.NODE_ENV !== 'production') { process.exit(require('child_process').spawn('npm', ['run', 'build'], {stdio:'inherit'}).exitCode) }\"",
     "watch": "tsc --watch",
     "test": "node test-client.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.7.0",
     "axios": "^1.6.7",
