@@ -23,7 +23,7 @@ const server = new McpServer({
  * @param {string} ticker - Stock ticker symbol
  * @returns {Promise<SegmentedRevenueData>} Segmented revenue data
  */
-async function fetchSegmentedRevenue(ticker: string): Promise<SegmentedRevenueData> {
+export async function fetchSegmentedRevenue(ticker: string): Promise<SegmentedRevenueData> {
   const response = await axios.get(`https://scraper-backend-2ml7.onrender.com/api/v1/sec/segmented-revenue/?ticker=${ticker}`);
   return response.data;
 }
@@ -33,7 +33,7 @@ async function fetchSegmentedRevenue(ticker: string): Promise<SegmentedRevenueDa
  * @param {string} name - Congressman first name (e.g., nancy)
  * @returns {Promise<CongressTradesData>} Congress trades data
  */
-async function fetchCongressTradesByName(name: string): Promise<CongressTradesData> {
+export async function fetchCongressTradesByName(name: string): Promise<CongressTradesData> {
   const response = await axios.get(`https://scraper-backend-2ml7.onrender.com/api/v1/sec/congress-trades/${name}/`);
   return response.data;
 }
@@ -43,7 +43,7 @@ async function fetchCongressTradesByName(name: string): Promise<CongressTradesDa
  * @param {string} ticker - Stock ticker symbol
  * @returns {Promise<CongressTradesData>} Congress trades data for ticker
  */
-async function fetchCongressTradesByTicker(ticker: string): Promise<CongressTradesData> {
+export async function fetchCongressTradesByTicker(ticker: string): Promise<CongressTradesData> {
   const response = await axios.get(`https://scraper-backend-2ml7.onrender.com/api/v1/sec/congress-trades/${ticker}/`);
   return response.data;
 }
@@ -144,11 +144,14 @@ server.tool(
   }
 );
 
-// Start the server
-const transport = new StdioServerTransport();
-server.connect(transport).catch((error) => {
-  console.error('[MCP Error]', error);
-  process.exit(1);
-});
+// Only start the server when this file is run directly (not during tests)
+if (process.env.NODE_ENV !== 'test' && process.argv[1].includes('index')) {
+  // Start the server
+  const transport = new StdioServerTransport();
+  server.connect(transport).catch((error) => {
+    console.error('[MCP Error]', error);
+    process.exit(1);
+  });
 
-console.error('MCP server running on stdio'); 
+  console.error('MCP server running on stdio');
+} 

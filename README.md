@@ -54,4 +54,47 @@ npm test
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details. 
+MIT License - see [LICENSE](LICENSE) for details.
+
+## API Endpoints
+
+The MCP server provides the following endpoints:
+
+1. **Segmented Revenue**
+   - Endpoint: `segmented-revenue`
+   - Parameters: `ticker` (string) - Stock ticker symbol (e.g., AAPL)
+   - Example: `segmented-revenue` with `{ "ticker": "AAPL" }`
+
+2. **Congress Trades by Name**
+   - Endpoint: `congress-trades-by-name`
+   - Parameters: `name` (string) - Congressman first name (e.g., nancy)
+   - Example: `congress-trades-by-name` with `{ "name": "nancy" }`
+
+3. **Congress Trades by Ticker**
+   - Endpoint: `congress-trades-by-ticker`
+   - Parameters: `ticker` (string) - Stock ticker symbol (e.g., AAPL)
+   - Example: `congress-trades-by-ticker` with `{ "ticker": "AAPL" }`
+
+## Testing
+
+The project includes both integration tests and unit tests.
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run only client integration tests
+npm run test:client
+
+# Run only unit tests
+npm run test:unit
+```
+
+### Test Files
+
+- Integration tests: `test-client.js`
+- Unit tests: 
+  - `src/__tests__/segmented-revenue.test.ts`
+  - `src/__tests__/congress-trades.test.ts` 

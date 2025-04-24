@@ -15,7 +15,9 @@
     "build": "tsc && shx chmod +x dist/*.js",
     "prepare": "node -e \"if(process.env.NODE_ENV !== 'production') { process.exit(require('child_process').spawn('npm', ['run', 'build'], {stdio:'inherit'}).exitCode) }\"",
     "watch": "tsc --watch",
-    "test": "node test-client.js"
+    "test:client": "node test-client.js",
+    "test:unit": "jest",
+    "test": "npm run test:client && npm run test:unit"
   },
   "keywords": [],
   "author": "",
@@ -27,8 +29,12 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.12",
     "@types/node": "^20.11.24",
+    "jest": "^29.7.0",
+    "jest-environment-node": "^29.7.0",
     "shx": "^0.3.4",
+    "ts-jest": "^29.1.2",
     "typescript": "^5.6.2"
   }
 }
